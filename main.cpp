@@ -29,7 +29,7 @@ struct IFile_vtable {
     void* f10;
     void* f11;
     void* f12;
-    void (*IFile_Release)(struct IFile* __this);
+    void (*Release)(struct IFile* __this);
     void* f14;
 };
 
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
                 size_t sz = f->_vtable->Size(f);
                 char* m = (char*)malloc(sz + 1);
                 size_t sz2 = f->_vtable->Read(f, m, sz);
-                f->_vtable->IFile_Release(f);
+                f->_vtable->Release(f);
                 std::fstream fs2;
                 std::filesystem::path parent = std::filesystem::path(file).remove_filename();
                 if (!std::filesystem::exists(parent)) {
