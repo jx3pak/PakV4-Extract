@@ -26,6 +26,7 @@ typedef int (INITV1)(const char* a1, const char* a2);
 typedef int (INITV2)(const char* a1, int a2, int a3);
 typedef int (INITV3)(const wchar_t* a1, const wchar_t* a2, int a3);
 typedef int (INITV4)(const char* a1, const char* a2, void* a3, int a4, int a5, int a6);
+typedef int (INITV5)(const char* a1);
 typedef char* __cdecl G_setlocale(int Category, const char* Locale);
 class IFile
 {
@@ -63,13 +64,13 @@ int main(int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		std::cout << "KS PakV1234 Extracter\n";
+		std::cout << "KS PakV12345 Extracter\n";
 		std::cout << "                               by Me at 2022.10.10\n";
 		std::cout << "usage:\n";
-		std::cout << "  1. put \"PakV1234-Extract.exe\" in \"bin64\" folder.\n";
-		std::cout << "  2. drop \"path-list.txt\" on \"PakV1234-Extract.exe\".\n";
-		std::cout << "example: PakV1234-Extract.exe path.txt\n";
-		std::cout << "comment: build x86 for PakV123, build x64 for Pak1234\n";
+		std::cout << "  1. put \"PakV12345-Extract.exe\" in \"bin64\" folder.\n";
+		std::cout << "  2. drop \"path-list.txt\" on \"PakV12345-Extract.exe\".\n";
+		std::cout << "example: PakV12345-Extract.exe pathlist.txt\n";
+		std::cout << "comment: build x86 for PakV123, build x64 for Pak12345\n";
 		return -1;
 	}
 	else {
@@ -94,10 +95,12 @@ int main(int argc, char** argv)
 		INITV2* initV2 = (INITV2*)GetProcAddress(h, V2NAME);
 		INITV3* initV3 = (INITV3*)GetProcAddress(h, V3NAME);
 		INITV4* initV4 = (INITV4*)GetProcAddress(h, "KG_InitPakV4FileSystem");
+		INITV5* initV5 = (INITV5*)GetProcAddress(h, "g_InitHttpFile");
 		char module[4096];
 		GetModuleFileNameA(NULL, module, 4096);
 		std::filesystem::current_path(std::filesystem::path(module).remove_filename().string() + R_PATH);
 		std::filesystem::path extract = std::filesystem::path(module).replace_extension("extract");
+		setlocal936();
 		if (std::filesystem::exists("../../PakV4/Trunk.Dir")) {
 			if (g_OpenFile == NULL || g_IsFileExist == NULL || g_FileNameHash == NULL || initV4 == NULL) {
 				std::cout << "bad Engine_Lua5X64.dll\n";
@@ -147,11 +150,21 @@ int main(int argc, char** argv)
 				return -1;
 			}
 		}
-		else {
+		elseif (std::filesystem::exists("configHttpFile.ini")) {
+			if (g_OpenFile == NULL || g_IsFileExist == NULL || g_FileNameHash == NULL || initV5 == NULL) {
+				std::cout << "bad Engine_Lua5X64.dll\n";
+				return -1;
+			}
+			int v4 = initV5("configHttpFile.ini");
+			if (!v4) {
+				std::cout << "bad PakV5\n";
+				return -1;
+			}
+		}
+		else  {
 			std::cout << "bad PakV???\n";
 			return -1;
 		}
-		setlocal936();
 		std::string line;
 		while (std::getline(fs, line)) {
 			const char* file = line.c_str();
