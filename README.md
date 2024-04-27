@@ -19,14 +19,18 @@ magnet:?xt=urn:btih:ce758bb03a53fa8be6c32d009e833a90b0ea71c8
 ```
 
 
-- 把编译后的程序，放到bin64目录，使用cmd运行
+- 把编译后的程序，放到bin64目录()，使用cmd运行
 
   64bit put in `D:\JX3\bin\zhcn\bin64\main.exe`
   
   32bit put in `D:\JX3\bin\zhcn\main.exe`
+
+  通俗来讲，就是`JX3Client.exe`(32bit)或者`JX3ClientX64.exe`(64bit)在哪个目录，就放哪个目录
   
-- 接收一个参数：文件列表.txt(每行一个文件名，中文请使用GBK编码)
+- 接收一个参数：资源路径列表.txt(每行一个内部资源路径，中文请使用GBK编码)
 
   64bit run `D:\JX3\bin\zhcn\bin64\main.exe D:\pathlist.txt`
   
   32bit run `D:\JX3\bin\zhcn\main.exe D:\pathlist.txt`
+
+  简单来讲，鼠标把`列表.txt`拖拽到`解包程序.exe`上即可
