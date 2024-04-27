@@ -150,13 +150,13 @@ int main(int argc, char** argv)
 				return -1;
 			}
 		}
-		elseif (std::filesystem::exists("configHttpFile.ini")) {
+		else if (std::filesystem::exists("configHttpFile.ini")) {
 			if (g_OpenFile == NULL || g_IsFileExist == NULL || g_FileNameHash == NULL || initV5 == NULL) {
 				std::cout << "bad Engine_Lua5X64.dll\n";
 				return -1;
 			}
-			int v4 = initV5("configHttpFile.ini");
-			if (!v4) {
+			int v5 = initV5("configHttpFile.ini");
+			if (!v5) {
 				std::cout << "bad PakV5\n";
 				return -1;
 			}
